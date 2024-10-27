@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELTE TVSZ Chatbot Prezentáció</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <!-- Lucide Icons - Updated to use the correct CDN -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <style>
+        .slide {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        .slide.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .icon {
+            width: 24px;
+            height: 24px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+<div class="min-h-screen p-8">
+    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+        <div class="p-8">
+            <!-- Slide 1: Címlap -->
+            <div class="slide" id="slide-0">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-gray-800">ELTE TVSZ Chatbot</h2>
+                    <p class="mt-2 text-lg text-gray-600">Intelligens Tanulmányi Szabályzat Asszisztens</p>
+                </div>
+                <div class="flex flex-col items-center justify-center space-y-6">
+                    <i data-lucide="bot" class="w-16 h-16 text-blue-600"></i>
+                    <p class="text-lg text-gray-600">Készítette: Kocsis Péter</p>
+                    <p class="text-sm text-gray-500">2024</p>
+                </div>
+            </div>
+
+            <!-- Slide 2: Projekt Áttekintés -->
+            <div class="slide" id="slide-1">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-gray-800">Projekt Áttekintés</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-4">
+                        <div class="p-4 bg-blue-50 rounded-lg">
+                            <h3 class="font-semibold text-blue-700">Cél</h3>
+                            <p>Tanulmányi szabályzat interaktív elérése chatbot segítségével</p>
+                        </div>
+                        <div class="p-4 bg-green-50 rounded-lg">
+                            <h3 class="font-semibold text-green-700">Technológiák</h3>
+                            <p>PHP 8.2, Azure OpenAI, Azure Cognitive Search</p>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-purple-50 rounded-lg">
+                            <h3 class="font-semibold text-purple-700">Előnyök</h3>
+                            <ul class="list-disc list-inside">
+                                <li>Gyors információ elérés</li>
+                                <li>24/7 elérhetőség</li>
+                                <li>Többnyelvű támogatás</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: Főbb Funkciók -->
+            <div class="slide" id="slide-2">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-gray-800">Főbb Funkciók</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <i data-lucide="search" class="text-blue-600"></i>
+                            <div>
+                                <h3 class="font-semibold">Hibrid Keresés</h3>
+                                <p class="text-sm text-gray-600">Vektor és szemantikus keresési technológiák kombinálása</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i data-lucide="message-square" class="text-green-600"></i>
+                            <div>
+                                <h3 class="font-semibold">Természetes Nyelvű Feldolgozás</h3>
+                                <p class="text-sm text-gray-600">Fejlett AI alapú szövegértés és válaszgenerálás</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <i data-lucide="users" class="text-purple-600"></i>
+                            <div>
+                                <h3 class="font-semibold">Visszajelzési Rendszer</h3>
+                                <p class="text-sm text-gray-600">Valós idejű felhasználói értékelések és vélemények</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i data-lucide="bar-chart" class="text-orange-600"></i>
+                            <div>
+                                <h3 class="font-semibold">Teljesítmény Monitoring</h3>
+                                <p class="text-sm text-gray-600">Részletes metrikák és statisztikák</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="mt-8 flex justify-between items-center">
+                <button id="prevButton" class="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                    <i data-lucide="chevron-left" class="mr-2"></i>
+                    Előző
+                </button>
+                <span class="text-gray-600" id="slide-counter"></span>
+                <button id="nextButton" class="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                    Következő
+                    <i data-lucide="chevron-right" class="ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Wait for DOM content to be loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        // Wait for Lucide to be loaded
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function updateSlideCounter() {
+            document.getElementById('slide-counter').textContent = `${currentSlide + 1} / ${slides.length}`;
+        }
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+            updateSlideCounter();
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        // Add event listeners
+        document.getElementById('nextButton').addEventListener('click', nextSlide);
+        document.getElementById('prevButton').addEventListener('click', prevSlide);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+
+        // Initialize first slide
+        showSlide(0);
+    });
+</script>
+</body>
+</html>
